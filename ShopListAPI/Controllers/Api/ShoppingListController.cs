@@ -5,58 +5,66 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ShopListAPI.Dtos;
+using ShopListAPI.Models;
+using ShopListAPI.Persistence;
+using ShopListAPI.Repository;
 
 namespace ShopListAPI.Controllers.Api
 {
     public class ShoppingListController : ApiController
     {
-        [HttpGet]
-        public IEnumerable<ShopItemDto> GetAllShopItems() 
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ShoppingListController(IUnitOfWork unitOfWork)
         {
-            List<ShopItemDto> items;
-            items = new List<ShopItemDto>();
-            //TODO: get the list from the repo->database...
-            return items;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public ShopItemDto GetShopItemById(string id) 
+        public IEnumerable<ShopItemDto> GetAllShopItems() 
         {
-            //TODO: get a specific shopping list item... base on the id provided...
-            var item = new ShopItemDto
-            {
-                ItemName = "pepsi",
-                ItemQuantity = 1
-            };
-            return item;
+            return _unitOfWork.ShopItems.GetAllShopItemsToDtos();
+        }
+
+        [HttpGet]
+        public ShopItemDto GetShopItemById(string id)
+        {
+            return _unitOfWork.ShopItems.GetShopItemDtoById(id);
         }
 
         [HttpPost]
         public IHttpActionResult AddShopItem(ShopItemDto item)
         {
-            //TODO: add the item passed via parameter to the repo...
-            return Ok();
-        } // add an item to the shopping list...
+
+            return Ok(_unitOfWork.ShopItems.AddShopItem(item));
+        }
 
         [HttpPut]
-        public IHttpActionResult FullUpdateShopItem(string itemId, ShopItemDto item)
+        public IHttpActionResult FullUpdateShopItem(ShopItemDto item)
         {
-            //TODO: Insert the whole Item....
-            return Ok(item);
+            return Ok(_unitOfWork.ShopItems.FullUpdateShopItem(item));
         }
 
         [HttpPatch]
-        public IHttpActionResult DeltaUpdateShopItem(string itemId, ShopItemDto item)
+        public IHttpActionResult DeltaUpdateShopItem(ShopItemDto item)
         {
             //TODO: Insert the partial Item....
-            return Ok(item);
+            return Ok(_unitOfWork.ShopItems.DeltaUpdateShopItem(item));
         }
 
         [HttpDelete]
         public IHttpActionResult DeleteShopItem(string id)
-        {
-            //TODO: delete shop item from repo...
+        {        
+            _unitOfWork.ShopItems.DeleteSingleShopItem(id);
             return NotFound();
         }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteShopItemRecord(ShopItemDto item)
+        {
+            _unitOfWork.ShopItems.DeleteAllShopItem(item);
+            return NotFound();
+        }
+        
     }
 }

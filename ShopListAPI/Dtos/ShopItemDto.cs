@@ -7,10 +7,11 @@ namespace ShopListAPI.Dtos
 {
     public class ShopItemDto
     {
-        public string ItemName { get; set; }
-        public int ItemQuantity { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
         public double UnitPrice { get; set; }
         public double TotalPrice { get; set; }
-        public bool CheckedOut { get; set; }
+        public bool CheckedOut { get; set; } = false;
     }
 }
