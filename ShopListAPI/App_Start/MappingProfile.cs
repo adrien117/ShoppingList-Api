@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using ShopListAPI.Dtos;
-using ShopListAPI.Models;
+using ShopListAPI.Core.Dtos;
+using ShopListAPI.Core.Models;
 
 namespace ShopListAPI
 {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace ShopListAPI.Models
+namespace ShopListAPI.Core.Models
 {
     // Models returned by AccountController actions.
 

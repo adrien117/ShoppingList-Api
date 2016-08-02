@@ -4,10 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using ShopListAPI.Dtos;
-using ShopListAPI.Models;
+using ShopListAPI.Core;
+using ShopListAPI.Core.Dtos;
 using ShopListAPI.Persistence;
-using ShopListAPI.Repository;
 
 namespace ShopListAPI.Controllers.Api
 {
@@ -27,9 +26,20 @@ namespace ShopListAPI.Controllers.Api
         }
 
         [HttpGet]
-        public ShopItemDto GetShopItemById(string id)
+        public IHttpActionResult GetShopItemById(string id)
         {
+            /* HumMMMMMMMM stupid mistake!!! caught by unit test :)
+             * i was returning a model... i should be returning an http action
+             * then i should return the correct result.... 200 or 404
+             * unit test is always the best way of spoting errors....
             return _unitOfWork.ShopItems.GetShopItemDtoById(id);
+            */
+            ShopItemDto item = new ShopItemDto();
+            item = _unitOfWork.ShopItems.GetShopItemDtoById(id);
+            if (item.Name == "Adrien Was Here")
+                return NotFound();
+        
+            return Ok(item);
         }
 
         [HttpPost]

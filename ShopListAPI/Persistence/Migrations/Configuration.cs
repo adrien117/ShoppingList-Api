@@ -1,3 +1,6 @@
+using ShopListAPI.Core.Models;
+using ShopListAPI.Persistence;
+
 namespace ShopListAPI.Migrations
 {
     using System;
@@ -5,14 +8,15 @@ namespace ShopListAPI.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ShopListAPI.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Persistence\Migrations";
         }
 
-        protected override void Seed(ShopListAPI.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

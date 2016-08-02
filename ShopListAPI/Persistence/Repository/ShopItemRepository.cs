@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using AutoMapper;
-using ShopListAPI.Dtos;
-using ShopListAPI.Models;
+using ShopListAPI.Core.Dtos;
+using ShopListAPI.Core.Models;
+using ShopListAPI.Core.Repositories;
 
-namespace ShopListAPI.Repository
+namespace ShopListAPI.Persistence.Repository
 {
     public class ShopItemRepository : IShopItemRepository
     {
@@ -33,15 +33,18 @@ namespace ShopListAPI.Repository
 
         public ShopItemDto GetShopItemDtoById(string id)
         {
-            var allDtoItem = GetAllShopItemsToDtos();
-            var foundItem = new ShopItemDto();
+            IEnumerable<ShopItemDto> allDtoItem = new List<ShopItemDto>();
+            allDtoItem = GetAllShopItemsToDtos();
+            ShopItemDto foundItem = new ShopItemDto();
+            // to avoid not reference error...
+            foundItem.Name = "Adrien Was Here";
 
             foreach (var i in allDtoItem)
             {
                 if (string.Compare(id, i.Name, StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
                     foundItem = i;
-                    break;
+                    return foundItem;
                 }
             }
             return foundItem;

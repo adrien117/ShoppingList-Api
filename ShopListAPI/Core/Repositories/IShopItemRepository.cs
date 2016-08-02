@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ShopListAPI.Dtos;
-using ShopListAPI.Models;
+using ShopListAPI.Core.Dtos;
+using ShopListAPI.Core.Models;
 
-namespace ShopListAPI.Repository
+namespace ShopListAPI.Core.Repositories
 {
     public interface IShopItemRepository
     {

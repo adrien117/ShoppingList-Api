@@ -3,7 +3,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using ShopListAPI.Models;
+using ShopListAPI.Core.Models;
+using ShopListAPI.Persistence;
 
 namespace ShopListAPI
 {

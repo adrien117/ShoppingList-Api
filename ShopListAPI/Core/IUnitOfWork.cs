@@ -1,6 +1,6 @@
-﻿using ShopListAPI.Repository;
+﻿using ShopListAPI.Core.Repositories;
 
-namespace ShopListAPI.Persistence
+namespace ShopListAPI.Core
 {
     public interface IUnitOfWork
     {
