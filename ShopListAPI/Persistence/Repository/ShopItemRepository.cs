@@ -89,28 +89,25 @@ namespace ShopListAPI.Persistence.Repository
 
         public ShopItemDto FullUpdateShopItem(ShopItemDto itemDto)
         {
-            var currentItem = FindShopItemByName(itemDto.Name);
-            using (_context)
-            {
-                var toBeUpdated = _context.ShopItems.Find(currentItem.Id);
-                toBeUpdated.Count += itemDto.Count;
-                toBeUpdated.UnitPrice = itemDto.UnitPrice;
-                toBeUpdated.CheckedOut = itemDto.CheckedOut;
-                toBeUpdated.TotalPrice = toBeUpdated.Count * currentItem.UnitPrice;
-                _context.SaveChanges();
-                currentItem = toBeUpdated;
+            //var currentItem = FindShopItemByName(itemDto.Name);
+            //using (_context)
+            //{
+            //    var toBeUpdated = _context.ShopItems.Find(currentItem.Id);
+            //    toBeUpdated.Count += itemDto.Count;
+            //    toBeUpdated.UnitPrice = itemDto.UnitPrice;
+            //    toBeUpdated.CheckedOut = itemDto.CheckedOut;
+            //    toBeUpdated.TotalPrice = toBeUpdated.Count * currentItem.UnitPrice;
+            //    _context.SaveChanges();
+            //    currentItem = toBeUpdated;
 
-            }
-            //currentItem.Count += itemDto.Count;
-            //currentItem.UnitPrice = itemDto.UnitPrice;
-            //currentItem.CheckedOut = itemDto.CheckedOut;
-            //currentItem.TotalPrice = currentItem.Count*currentItem.UnitPrice;
+            //}
+            
+            //ShopItemDto updatedItem = new ShopItemDto();
+            //Mapper.Initialize(config => config.CreateMap<ShopItem, ShopItemDto>());
+            //Mapper.Map(currentItem, updatedItem);
+            //return updatedItem;
 
-            //_context.ShopItems.Add(currentItem);
-            ShopItemDto updatedItem = new ShopItemDto();
-            Mapper.Initialize(config => config.CreateMap<ShopItem, ShopItemDto>());
-            Mapper.Map(currentItem, updatedItem);
-            return updatedItem;
+            return DeltaUpdateShopItem(itemDto);
         }
 
         public ShopItemDto DeltaUpdateShopItem(ShopItemDto itemDto)
